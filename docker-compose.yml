@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  hubot:
+    image: 3ch01c/hubot
+    build:
+      context: .
+      args:
+        - HUBOT_ADAPTER
+        - HUBOT_DESCRIPTION
+        - HUBOT_NAME
+        - HUBOT_OWNER
+        - HUBOT_PACKAGES
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    ports:
+      - "8080:8080"
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
+    env_file:
+      - common.env
+      - hubot.env
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - ./hubot/scripts:/hubot/scripts
+      - ./hubot/external-scripts.json:/hubot/external-scripts.json
+  redis:
+    image: redis:buster
+    command: redis-server --appendonly yes
+    volumes:
+      - hubot-brain:/data
+volumes:
+  hubot-brain:
