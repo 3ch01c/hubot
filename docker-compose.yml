@@ -9,7 +9,8 @@ services:
         - HUBOT_DESCRIPTION
         - HUBOT_NAME
         - HUBOT_OWNER
-        - HUBOT_PACKAGES
+        - HUBOT_PACKAGES=https-proxy-agent
+        - HUBOT_PORT=8080
         - http_proxy
         - https_proxy
         - no_proxy
@@ -20,15 +21,14 @@ services:
       - https_proxy
       - no_proxy
     env_file:
-      - common.env
       - hubot.env
     depends_on:
       - redis
     links:
       - redis
     volumes:
-      - ./hubot/scripts:/hubot/scripts
-      - ./hubot/external-scripts.json:/hubot/external-scripts.json
+      - ./scripts:/hubot/scripts
+      - ./external-scripts.json:/hubot/external-scripts.json
   redis:
     image: redis:buster
     command: redis-server --appendonly yes

@@ -65,7 +65,10 @@ RUN npm i
 # Install external scripts
 RUN npm i -S $(tr -d '\n' < external-scripts.json | sed -E 's/("|,|\[|\]|\n)/ /g')
 # Install other packages
-RUN npm i -S "${HUBOT_PACKAGES}"
+RUN npm i -S ${HUBOT_PACKAGES}
+
+# Apply patches
+COPY node_modules node_modules
 
 # Patch vulnerabilities
 RUN npm audit fix
