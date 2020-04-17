@@ -44,12 +44,6 @@ ENV HUBOT_PORT="${HUBOT_PORT}"
 
 EXPOSE "${HUBOT_PORT}"
 
-# Update, upgrade, and install stuff
-RUN apt-get update \
-  && apt-get install -y \
-  oathtool \
-  && rm -rf /var/lib/apt/lists/*
-
 # Switch to app context
 WORKDIR /hubot
 
