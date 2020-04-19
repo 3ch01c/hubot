@@ -7,7 +7,7 @@ This is a [Dockerized](https://www.docker.com/) version of [Hubot](https://githu
 Start up a chat bot that runs in an interactive shell.
 
 ```sh
-$ docker run -it 3ch01c/hubot
+$ docker run -it --rm 3ch01c/hubot
 
 Hubot> @hubot ping
 Hubot> PONG
