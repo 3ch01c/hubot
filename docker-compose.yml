@@ -9,7 +9,7 @@ services:
         - HUBOT_DESCRIPTION=Delightfully aware robutt
         - HUBOT_NAME=Hubot
         - HUBOT_OWNER=Bot Wrangler <bw@example.com>
-        - HUBOT_PACKAGES=https-proxy-agent
+        - HUBOT_PACKAGES=proxy-agent
         - HUBOT_PORT=8080
         - http_proxy
         - https_proxy
@@ -29,6 +29,7 @@ services:
     volumes:
       - ./scripts:/hubot/scripts
       - ./external-scripts.json:/hubot/external-scripts.json
+    tty: true
   redis:
     image: redis:buster
     command: redis-server --appendonly yes

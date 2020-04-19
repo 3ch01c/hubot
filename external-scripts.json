@@ -1,1 +1,13 @@
-["hubot-auth", "hubot-diagnostics", "hubot-help", "hubot-redis-brain"]
+[
+  "hubot-auth",
+  "hubot-diagnostics",
+  "hubot-google-images",
+  "hubot-google-translate",
+  "hubot-help",
+  "hubot-heroku-keepalive",
+  "hubot-maps",
+  "hubot-pugme",
+  "hubot-redis-brain",
+  "hubot-rules",
+  "hubot-shipit"
+]
