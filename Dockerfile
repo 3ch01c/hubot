@@ -36,7 +36,7 @@ RUN rm -f hubot-scripts.json
 FROM node:13-buster-slim
 LABEL maintainer="5547581+3ch01c@users.noreply.github.com"
 
-ARG HUBOT_ADAPTER="campfire"
+ARG HUBOT_ADAPTER="shell"
 ENV HUBOT_ADAPTER="${HUBOT_ADAPTER}"
 ARG HUBOT_PACKAGES
 ARG HUBOT_PORT=8080
