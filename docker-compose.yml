@@ -1,14 +1,14 @@
 version: "3.7"
 services:
   hubot:
-    image: 3ch01c/hubot
+    image: hubot
     build:
       context: .
       args:
-        - HUBOT_ADAPTER
-        - HUBOT_DESCRIPTION
-        - HUBOT_NAME
-        - HUBOT_OWNER
+        - HUBOT_ADAPTER=shell
+        - HUBOT_DESCRIPTION=Delightfully aware robutt
+        - HUBOT_NAME=Hubot
+        - HUBOT_OWNER=Bot Wrangler <bw@example.com>
         - HUBOT_PACKAGES=https-proxy-agent
         - HUBOT_PORT=8080
         - http_proxy

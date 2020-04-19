@@ -1,7 +1,7 @@
 # This container is used to build a Hubot.
 FROM node:13-buster-slim AS builder
 
-ARG HUBOT_ADAPTER="campfire"
+ARG HUBOT_ADAPTER="shell"
 ARG HUBOT_DESCRIPTION="Delightfully aware robutt"
 ARG HUBOT_NAME="Hubot"
 ARG HUBOT_OWNER="Bot Wrangler <bw@example.com>"
@@ -60,9 +60,6 @@ RUN npm i
 RUN npm i -S $(tr -d '\n' < external-scripts.json | sed -E 's/("|,|\[|\]|\n)/ /g')
 # Install other packages
 RUN npm i -S ${HUBOT_PACKAGES}
-
-# Apply patches
-COPY node_modules node_modules
 
 # Patch vulnerabilities
 RUN npm audit fix
