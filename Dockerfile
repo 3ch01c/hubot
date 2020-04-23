@@ -33,22 +33,8 @@ RUN yo hubot --adapter="${HUBOT_ADAPTER}" \
 # Remove hubot-scripts.json because it's [deprecated](https://github.com/github/hubot-scripts/issues/1113)
 RUN rm -f hubot-scripts.json
 
-# Create runtime container
-FROM node:13-buster-slim
-LABEL maintainer="5547581+3ch01c@users.noreply.github.com"
-
-# Switch to app context
-WORKDIR /hubot
-
-# Copy hubot code from builder image. We have to chown it to 0 because yo.
-COPY --from=builder --chown=0 /hubot .
-
 # Install Hubot dependencies
 RUN npm i
-
-ARG HUBOT_PORT=8080
-ENV HUBOT_PORT="${HUBOT_PORT}"
-EXPOSE "${HUBOT_PORT}"
 
 # Install user-defined packages
 ARG HUBOT_PACKAGES
@@ -61,6 +47,20 @@ COPY scripts .
 
 # Patch vulnerabilities
 RUN npm audit fix
+
+# Create runtime container
+FROM node:13-buster-slim
+LABEL maintainer="5547581+3ch01c@users.noreply.github.com"
+
+# Switch to app context
+WORKDIR /hubot
+
+# Copy hubot code from builder image. We have to chown it to 0 because yo.
+COPY --from=builder --chown=0 /hubot .
+
+ARG HUBOT_PORT=8080
+ENV HUBOT_PORT="${HUBOT_PORT}"
+EXPOSE "${HUBOT_PORT}"
 
 # Run hubot
 ARG HUBOT_ADAPTER="shell"
