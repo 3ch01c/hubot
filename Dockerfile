@@ -36,14 +36,11 @@ RUN rm -f hubot-scripts.json
 # Install Hubot dependencies
 RUN npm i
 
-# Install user-defined packages
-ARG HUBOT_PACKAGES
-RUN npm i -S ${HUBOT_PACKAGES}
-
 # Add custom scripts
 COPY external-scripts.json .
-RUN npm i -S $(tr -d '\n' < external-scripts.json | sed -E 's/("|,|\[|\]|\n)/ /g')
-COPY scripts .
+RUN tr -d " '\",[]" < external-scripts.json | xargs npm i -S
+COPY scripts scripts
+RUN sed -n "s/.*require.*[\"']\(.*\)[\"'].*/\1/p" scripts/* | sort | uniq | xargs npm i -S
 
 # Patch vulnerabilities
 RUN npm audit fix
@@ -58,6 +55,7 @@ WORKDIR /hubot
 # Copy hubot code from builder image. We have to chown it to 0 because yo.
 COPY --from=builder --chown=0 /hubot .
 
+# Expose HUBOT_PORT for the web server
 ARG HUBOT_PORT=8080
 ENV HUBOT_PORT="${HUBOT_PORT}"
 EXPOSE "${HUBOT_PORT}"
