@@ -1,7 +1,9 @@
 [
   "hubot-auth",
   "hubot-diagnostics",
+  "hubot-dice",
   "hubot-help",
   "hubot-redis-brain",
-  "hubot-rules"
+  "hubot-uptime",
+  "hubot-voting"
 ]
